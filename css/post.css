@@ -9,7 +9,7 @@
     box-shadow: 1px 1px 6px  black;
     background-color: white;
 }
-#user-info {
+.user-info {
     display: flex;
     align-items: center;
     width: 20vw;
@@ -19,37 +19,38 @@
     border-bottom: 1.5px solid lightslategray;
     
 }
-#buttons {
+.buttons {
     display: flex;
 
 }
-#text-content{
+.text-content{
     margin: 1.5em;
+    margin-bottom: 2vh;
 }
-#text-content h3{
+.text-content h3{
     margin: 0;
 }
-#user-info img{
+.user-info img{
     
-    max-width: 30%;
+    max-width: 25%;
     object-fit: cover;
     width: auto;
     height: auto;
 }
-#user-info p{
+.user-info p{
     display: flex;
     margin: 5%;
     width: 60%;
 
 
 }
-#buttons {
+.buttons {
     margin-left: 1.5em;
     margin-bottom: 1.25vh;
 
 
 }
-#buttons input {
+.buttons input {
     background-color: aliceblue;
     border: none;
     color:  lightslategray;
@@ -77,12 +78,12 @@
 }
 .reply {
 
-    width: 66vw;
+    width: 64vw;
     margin: 2vh;
-    height: 500px;
-    margin-left: 16.5vw;
+    margin-left: 18vw;
+    margin-right: 18vw;
     border-radius: 8px;
-    border: 2px solid rgb(158, 158, 158);
+    border: 2px solid lightslategray;
     background-color: white;
 
 }

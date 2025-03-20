@@ -7,16 +7,15 @@
     <script src="js/post.js"></script>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/post.css">
-    <script src="js/home.js"></script>
 </head>
 
 <body>
     <div id="post">
-        <div id="user-info">
+        <div class="user-info">
             <img src="images/user.png" alt="">
             <p>FirstName LastName</p>
         </div>
-        <div id="text-content">
+        <div class="text-content">
             <h3>
                 title
             </h3>
@@ -32,36 +31,60 @@
         </div>
         <div id="image-content"></div>
 
-        <div id="buttons">
+        <div class="buttons">
             <input type="button"  value="Reply">
             <input type="button" value="Like">
             <input type="button" value="Report">
         </div>
     </div>
     <div id="reply-tab">
-        <span style="font-size: 1.25em; margin-right: 1vw;">&#9660</span>
+        <span style="font-size: 1.25em; margin-right: 1vw;">&#x25B2;</span>
         <h3>Replies</h3>
     </div>
     <div id="replies">
 
         <div class="reply">
-            <div id="text-content">
+            <div class="user-info">
+                <img src="images/user.png" alt="">
+                <p>FirstName LastName</p>
+            </div>
+            <div class="image-content"></div>
+    
+
+            <div class="text-content">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sagittis augue lectus, ac tincidunt tellus ornare volutpat. 
                     neque id nulla commodo fermentum sed nec elit. Nunc at orci fermentum, cursus urna ac, imperdiet arcu. 
                     Nullam lectus lorem, blandit vitae felis ullamcorper, vulputate condimentum lacus. Curabitur convallis, justo in rhoncus facilisis, ligula lectus tincidunt velit, eget fermentum massa nisl id tortor. 
                     Nulla pulvinar hendrerit suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer auctor orci id nisl pulvinar tempor. Nullam eros nulla, porttitor et tristique eget, maximus sed leo.
                 </p>
             </div>
+            <div class="buttons">
+                <input type="button"  value="Reply">
+                <input type="button" value="Like">
+                <input type="button" value="Report">
+            </div>
         </div>
+        
         <div class="reply">
-            
+            <div class="user-info">
+                <img src="images/user.png" alt="">
+                <p>FirstName LastName</p>
+            </div>
+            <div class="image-content"></div>
+    
+
+            <div class="text-content">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sagittis augue lectus, ac tincidunt tellus ornare volutpat. 
+                    neque id nulla commodo fermentum sed nec elit. Nunc at orci fermentum, cursus urna ac, imperdiet arcu. 
+                </p>
+            </div>
+            <div class="buttons">
+                <input type="button"  value="Reply">
+                <input type="button" value="Like">
+                <input type="button" value="Report">
+            </div>
         </div>
-        <div class="reply">
-            
-        </div>
-        <div class="reply">
-            
-        </div>
+        
     </div>
 
 </body>
