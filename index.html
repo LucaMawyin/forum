@@ -1,14 +1,124 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8" name="viewport" content="width=device-width">
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>Leibniz Forum Home</title>
     <link rel="stylesheet" href="css/global.css">
-    <script src="js/home.js"></script>
+    <script src="js/home.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background: #333;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1em;
+        }
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+        .forum-container {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: 270px;
+        }
+        .post-preview {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+        .post-preview:last-child {
+            border-bottom: none;
+        }
+        .post-title {
+            font-size: 1.2em;
+            margin: 0;
+        }
+        .post-meta {
+            font-size: 0.9em;
+            color: gray;
+        }
+        .post-excerpt {
+            margin-top: 5px;
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        a:hover .post-title {
+            color: #007bff;
+        }
+    </style>
 </head>
-
 <body>
-    <nav>
-        
-    </nav>
+
+    <header>
+        <h2>Leibniz Forum</h2>
+    </header>
+
+    <div class="sidebar">
+        <h2>Communities</h2>
+        <ul>
+            <li><a href="#">CS 1XD3</a></li>
+            <li><a href="#">CS 1JC3</a></li>
+            <li><a href="#">CS 1XC3</a></li>
+            <li><a href="#">CS 1MD3</a></li>
+        </ul>
+    </div>
+    <div class="forum-container">
+        <h1>Leibniz Forum</h1>
+        <div class="post-preview">
+            <a href="post1.html">
+                <h2 class="post-title">Understanding Leibniz’s Philosophy</h2>
+                <span class="post-meta">Posted by <strong>Admin</strong> on March 20, 2025</span>
+                <p class="post-excerpt">A discussion on Leibniz's contributions to metaphysics, calculus, and rationalism...</p>
+            </a>
+        </div>
+        <div class="post-preview">
+            <a href="post2.html">
+                <h2 class="post-title">Monadology: A Brief Introduction</h2>
+                <span class="post-meta">Posted by <strong>User123</strong> on March 18, 2025</span>
+                <p class="post-excerpt">Exploring the key concepts of Leibniz's Monadology and its significance...</p>
+            </a>
+        </div>
+        <div class="post-preview">
+            <a href="post3.html">
+                <h2 class="post-title">Leibniz vs. Newton: The Calculus Controversy</h2>
+                <span class="post-meta">Posted by <strong>Historian42</strong> on March 15, 2025</span>
+                <p class="post-excerpt">An in-depth look at the famous dispute over the invention of calculus...</p>
+            </a>
+        </div>
+    </div>
 </body>
+</html>
