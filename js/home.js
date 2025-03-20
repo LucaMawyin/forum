@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const homeContent = document.querySelector('.home-content');
     const communitiesList = document.querySelector('.communities ul');
-    
+
     // Sample post data
     const posts = [
         {
@@ -57,11 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Generating tiles for each post
     posts.forEach(createPostTile);
 
-    // Creating community links dynamically
+    // Creating community links dynamically with query parameters
     function createCommunityLink(community) {
         const listItem = document.createElement('li');
         const communityLink = document.createElement('a');
-        communityLink.href = '#';
+
+        // Query parameter
+        communityLink.href = `community.html?community=${community}`;
         communityLink.textContent = community;
 
         listItem.appendChild(communityLink);
@@ -70,4 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Generate community links
     communities.forEach(createCommunityLink);
+
+    // Check the URL for a query parameter and change the title accordingly
+    const urlParams = new URLSearchParams(window.location.search);
+    const community = urlParams.get('community');
+    
+    if (community) {
+        const pageTitle = document.querySelector('h1');
+        pageTitle.textContent = `Community: ${community}`; // Update the title based on the community
+    }
 });
