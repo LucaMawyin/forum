@@ -90,6 +90,7 @@ header input:focus {
     border: 1px solid black;
     border-radius: 5px;
     padding: 1%;
+    margin: 1%;
 }
 
 .post-link{
