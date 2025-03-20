@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
+    // Sample community data
     const communities = [
         '1XC3',
         '1XD3',
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Generating tiles for each post
     posts.forEach(createPostTile);
 
-    // Creating community links dynamically with query parameters
+    // Create community links dynamically with query parameters
     function createCommunityLink(community) {
         const listItem = document.createElement('li');
         const communityLink = document.createElement('a');
@@ -70,15 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
         communitiesList.appendChild(listItem);
     }
 
-    // Generate community links
+    // Generate links
     communities.forEach(createCommunityLink);
 
-    // Check the URL for a query parameter and change the title accordingly
+    // Query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const community = urlParams.get('community');
     
+    // Changing header title
     if (community) {
         const pageTitle = document.querySelector('h1');
-        pageTitle.textContent = `Community: ${community}`; // Update the title based on the community
+        pageTitle.textContent = `Community: ${community}`;
     }
 });
