@@ -1,0 +1,88 @@
+#post {
+    display: flex;
+    flex-direction: column;
+    width: 66vw;
+    margin: 2vh;
+    margin-left: 16vw;
+    margin-right: 16vw;
+    border-radius: 8px;
+    box-shadow: 1px 1px 6px  black;
+    background-color: white;
+}
+#user-info {
+    display: flex;
+    align-items: center;
+    width: 20vw;
+    margin: 1.5em;
+    margin-top: 1vh;
+    margin-bottom: 0;
+    border-bottom: 1.5px solid lightslategray;
+    
+}
+#buttons {
+    display: flex;
+
+}
+#text-content{
+    margin: 1.5em;
+}
+#text-content h3{
+    margin: 0;
+}
+#user-info img{
+    
+    max-width: 30%;
+    object-fit: cover;
+    width: auto;
+    height: auto;
+}
+#user-info p{
+    display: flex;
+    margin: 5%;
+    width: 60%;
+
+
+}
+#buttons {
+    margin-left: 1.5em;
+    margin-bottom: 1.25vh;
+
+
+}
+#buttons input {
+    background-color: aliceblue;
+    border: none;
+    color:  lightslategray;
+    margin-right: 8px;
+}
+#replies {
+    display: flex;
+    flex-direction: column;
+    height: 5000px;
+}
+#reply-tab {
+    display: flex;
+    align-items: center;
+    margin-left: 16vw;
+    width: 66vw;
+    margin-left: 16vw;
+    margin-right: 16vw; 
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid lightslategray;;
+
+}
+#reply-tab input {
+    margin-right: 5%;
+    width: 15%;
+}
+.reply {
+
+    width: 66vw;
+    margin: 2vh;
+    height: 500px;
+    margin-left: 16.5vw;
+    border-radius: 8px;
+    border: 2px solid rgb(158, 158, 158);
+    background-color: white;
+
+}
