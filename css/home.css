@@ -1,0 +1,47 @@
+@import url("global.css");
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1%;
+}
+
+header button {
+    background: linear-gradient(135deg, #4A90E2, #007AFF); /* Gradient Blue */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+header button:hover {
+    background: linear-gradient(135deg, #007AFF, #0056b3);
+}
+
+header button:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+header input {
+    width: 250px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header input:focus {
+    border-color: #007AFF;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
