@@ -14,7 +14,9 @@ input{
 * {
     box-sizing: border-box;
 }
+
 html, body {
     margin: 0;
     font-family: var(--font-primary);
+    height:100%;
 }
