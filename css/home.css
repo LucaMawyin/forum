@@ -21,7 +21,6 @@ header button {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 header button:hover {
@@ -29,7 +28,7 @@ header button:hover {
 }
 
 header button:active {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #0056b3, #003d99);
 }
 
 header input {
@@ -41,13 +40,11 @@ header input {
     outline: none;
     transition: all 0.3s ease-in-out;
     background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 header input:focus {
     border-color: #007AFF;
     background-color: white;
-    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
 }
 
 .content{
