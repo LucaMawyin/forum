@@ -59,7 +59,7 @@ header input:focus {
     padding: 1%;
     background-color:#1e2a47;
     color: white;
-    min-height: 100vh;
+    min-height: 90%;
 }
 
 .communities ul {
