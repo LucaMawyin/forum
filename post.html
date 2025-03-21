@@ -8,82 +8,92 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/post.css">
 </head>
+<header>
+    <h1>Leibniz</h1>
+    <input type="text" placeholder="Search">
+    <button id="account">Log In</button>
+</header>
 
 <body>
-    <div id="post">
-        <div class="user-info">
-            <img src="images/user.png" alt="">
-            <p>FirstName LastName</p>
-        </div>
-        <div class="text-content">
-            <h3>
-                title
-            </h3>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sagittis augue lectus, ac tincidunt tellus ornare volutpat. 
-                Phasellus condimentum mauris ut magna efficitur cursus. Nulla facilisi. Etiam fringilla ante tristique, interdum quam vitae, interdum ipsum. 
-                Donec et lorem quam. Donec efficitur pharetra odio, sagittis vulputate mi ornare eget. Quisque id tincidunt dui. Pellentesque ac nulla erat. 
-                Aenean porttitor mattis bibendum. Duis varius ipsum risus, eu pretium diam ultrices ut. Aliquam rhoncus ullamcorper nisl, in faucibus nibh rutrum at. 
-                Curabitur aliquet eu magna ut porttitor. Fusce ut neque id nulla commodo fermentum sed nec elit. Nunc at orci fermentum, cursus urna ac, imperdiet arcu. 
-                Nullam lectus lorem, blandit vitae felis ullamcorper, vulputate condimentum lacus. Curabitur convallis, justo in rhoncus facilisis, ligula lectus tincidunt velit, eget fermentum massa nisl id tortor. 
-                Nulla pulvinar hendrerit suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer auctor orci id nisl pulvinar tempor. Nullam eros nulla, porttitor et tristique eget, maximus sed leo.
-            </p>
-        </div>
-        <div id="image-content"></div>
-
-        <div class="buttons">
-            <input type="button"  value="Reply">
-            <input type="button" value="Like">
-            <input type="button" value="Report">
-        </div>
-    </div>
-    <div id="reply-tab">
-        <span style="font-size: 1.25em; margin-right: 1vw;">&#x25B2;</span>
-        <h3>Replies</h3>
-    </div>
-    <div id="replies">
-
-        <div class="reply">
-            <div class="user-info">
-                <img src="images/user.png" alt="">
-                <p>FirstName LastName</p>
-            </div>
-            <div class="image-content"></div>
-    
-
-            <div class="text-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sagittis augue lectus, ac tincidunt tellus ornare volutpat. 
-                    neque id nulla commodo fermentum sed nec elit. Nunc at orci fermentum, cursus urna ac, imperdiet arcu. 
-                    Nullam lectus lorem, blandit vitae felis ullamcorper, vulputate condimentum lacus. Curabitur convallis, justo in rhoncus facilisis, ligula lectus tincidunt velit, eget fermentum massa nisl id tortor. 
-                    Nulla pulvinar hendrerit suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer auctor orci id nisl pulvinar tempor. Nullam eros nulla, porttitor et tristique eget, maximus sed leo.
-                </p>
-            </div>
-            <div class="buttons">
-                <input type="button"  value="Reply">
-                <input type="button" value="Like">
-                <input type="button" value="Report">
-            </div>
-        </div>
+    <div class="content">  
+        <div id="post-content">
+            <div id="post">
+                <div class="user-info">
+                    <img src="images/user.png" alt="">
+                    <p>FirstName LastName</p>
+                </div>
+                <div class="text-content">
+                    <h3>
+                        title
+                    </h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sagittis augue lectus, ac tincidunt tellus ornare volutpat. 
+                        Phasellus condimentum mauris ut magna efficitur cursus. Nulla facilisi. Etiam fringilla ante tristique, interdum quam vitae, interdum ipsum. 
+                        Donec et lorem quam. Donec efficitur pharetra odio, sagittis vulputate mi ornare eget. Quisque id tincidunt dui. Pellentesque ac nulla erat. 
+                        Aenean porttitor mattis bibendum. Duis varius ipsum risus, eu pretium diam ultrices ut. Aliquam rhoncus ullamcorper nisl, in faucibus nibh rutrum at. 
+                        Curabitur aliquet eu magna ut porttitor. Fusce ut neque id nulla commodo fermentum sed nec elit. Nunc at orci fermentum, cursus urna ac, imperdiet arcu. 
+                        Nullam lectus lorem, blandit vitae felis ullamcorper, vulputate condimentum lacus. Curabitur convallis, justo in rhoncus facilisis, ligula lectus tincidunt velit, eget fermentum massa nisl id tortor. 
+                        Nulla pulvinar hendrerit suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer auctor orci id nisl pulvinar tempor. Nullam eros nulla, porttitor et tristique eget, maximus sed leo.
+                    </p>
+                </div>
+                <div id="image-content"></div>
         
-        <div class="reply">
-            <div class="user-info">
-                <img src="images/user.png" alt="">
-                <p>FirstName LastName</p>
+                <div class="buttons">
+                    <input type="button"  value="Reply">
+                    <input type="button" value="Like">
+                    <input type="button" value="Report">
+                </div>
             </div>
-            <div class="image-content"></div>
-    
-
-            <div class="text-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sagittis augue lectus, ac tincidunt tellus ornare volutpat. 
-                    neque id nulla commodo fermentum sed nec elit. Nunc at orci fermentum, cursus urna ac, imperdiet arcu. 
-                </p>
+            <div id="reply-tab">
+                <span style="font-size: 1.25em; margin-right: 1vw;">&#x25B2;</span>
+                <h3>Replies</h3>
             </div>
-            <div class="buttons">
-                <input type="button"  value="Reply">
-                <input type="button" value="Like">
-                <input type="button" value="Report">
+            <div id="replies">
+        
+                <div class="reply">
+                    <div class="user-info">
+                        <img src="images/user.png" alt="">
+                        <p>FirstName LastName</p>
+                    </div>
+                    <div class="image-content"></div>
+            
+        
+                    <div class="text-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sagittis augue lectus, ac tincidunt tellus ornare volutpat. 
+                            neque id nulla commodo fermentum sed nec elit. Nunc at orci fermentum, cursus urna ac, imperdiet arcu. 
+                            Nullam lectus lorem, blandit vitae felis ullamcorper, vulputate condimentum lacus. Curabitur convallis, justo in rhoncus facilisis, ligula lectus tincidunt velit, eget fermentum massa nisl id tortor. 
+                            Nulla pulvinar hendrerit suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer auctor orci id nisl pulvinar tempor. Nullam eros nulla, porttitor et tristique eget, maximus sed leo.
+                        </p>
+                    </div>
+                    <div class="buttons">
+                        <input type="button"  value="Reply">
+                        <input type="button" value="Like">
+                        <input type="button" value="Report">
+                    </div>
+                </div>
+                
+                <div class="reply">
+                    <div class="user-info">
+                        <img src="images/user.png" alt="">
+                        <p>FirstName LastName</p>
+                    </div>
+                    <div class="image-content"></div>
+            
+        
+                    <div class="text-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sagittis augue lectus, ac tincidunt tellus ornare volutpat. 
+                            neque id nulla commodo fermentum sed nec elit. Nunc at orci fermentum, cursus urna ac, imperdiet arcu. 
+                        </p>
+                    </div>
+                    <div class="buttons">
+                        <input type="button"  value="Reply">
+                        <input type="button" value="Like">
+                        <input type="button" value="Report">
+                    </div>
+                </div>
             </div>
         </div>
+    
         
     </div>
 

@@ -1,18 +1,26 @@
+@import url("home.css");
+
 #post {
     display: flex;
     flex-direction: column;
-    width: 66vw;
+    width: 60vw;
     margin: 2vh;
-    margin-left: 16vw;
-    margin-right: 16vw;
+
     border-radius: 8px;
     box-shadow: 1px 1px 6px  black;
     background-color: white;
+    
+}
+#post-content {
+    display: flex;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
 }
 .user-info {
     display: flex;
     align-items: center;
-    width: 20vw;
+    width: 18vw;
     margin: 1.5em;
     margin-top: 1vh;
     margin-bottom: 0;
@@ -65,8 +73,7 @@
     display: flex;
     align-items: center;
     margin-left: 16vw;
-    width: 66vw;
-    margin-left: 16vw;
+    width: 60vw;    
     margin-right: 16vw; 
     padding-bottom: 10px;
     border-bottom: 1.5px solid lightslategray;;
@@ -78,10 +85,10 @@
 }
 .reply {
 
-    width: 64vw;
+    width: 55vw;
     margin: 2vh;
-    margin-left: 18vw;
-    margin-right: 18vw;
+    margin-left: 8vw;
+    margin-right: 5vw;
     border-radius: 8px;
     border: 2px solid lightslategray;
     background-color: white;
