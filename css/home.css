@@ -5,14 +5,14 @@ header{
     align-items: center;
     justify-content: space-between;
     padding: 1%;
-    background-color: #333;
+    background-color: #7A003C;
     border-bottom: 2px solid black;
     color: white;
     height: 10%;
 }
 
 header button {
-    background: linear-gradient(135deg, #4A90E2, #007AFF);
+    background: linear-gradient(135deg, #E89E34, #FDBF57);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -20,15 +20,14 @@ header button {
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
 }
 
 header button:hover {
-    background: linear-gradient(135deg, #007AFF, #0056b3);
+    background: #D0892A;
 }
 
 header button:active {
-    background: linear-gradient(135deg, #0056b3, #003d99);
+    background: #E8A24A;
 }
 
 header input {
@@ -43,7 +42,7 @@ header input {
 }
 
 header input:focus {
-    border-color: #007AFF;
+    border-color: #FDBF57;
     background-color: white;
 }
 
@@ -57,26 +56,25 @@ header input:focus {
     flex-direction: column;
     align-items: flex-start;
     padding: 1%;
-    background-color:#1e2a47;
-    color: white;
+    color: black;
     min-height: 90%;
+    border-right: 2px solid black;
+    width: 10%;
 }
 
 .communities ul {
     list-style-type: none;
-    gap: 1%;
     padding: 0;
     margin: 0;
     width: 100%;
 }
 
 .communities li{
-    color:white;
     margin-bottom: 50%;
 }
 
 .communities li:hover{
-    background-color: #3b4a73;
+    background-color: lightgray;
 }
 
 .communities a{
@@ -102,7 +100,7 @@ header input:focus {
 
 a{
     text-decoration: none;
-    color:white;
+    color:black;
 }
 
 .home-content{
