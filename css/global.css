@@ -4,6 +4,7 @@
 :root{
     --font-primary: 'Manrope', sans-serif;
     --font-secondary: 'Bebas Neue', sans-serif;
+    cursor: default;
 }
 
 
