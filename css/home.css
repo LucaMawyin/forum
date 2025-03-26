@@ -11,7 +11,7 @@ header{
     height: 10%;
 }
 
-header button {
+#account {
     background: linear-gradient(135deg, #E89E34, #FDBF57);
     color: white;
     border: none;
@@ -22,13 +22,32 @@ header button {
     cursor: pointer;
 }
 
-header button:hover {
+#account:hover {
     background: #D0892A;
 }
 
-header button:active {
+#account:active {
     background: #E8A24A;
 }
+
+#create{
+    background-color: #7A003C;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#create:hover{
+    background-color: #B3005E;
+}
+
+#create:active{
+    background-color: #5A002D;
+}
+
 
 header input {
     width: 250px;
