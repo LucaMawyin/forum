@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-        <title>Create Post</title>
-        <link rel="stylesheet" href="css/home.css">
-        <link rel="stylesheet" href="css/global.css">
-        <link rel="stylesheet" href="css/create.css">
-    </head>
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/create.css">
+</head>
 
-    <header>
-        <h1>Forum Board</h1>
-        <input type="text" placeholder="Search">
-        <div id="nav-button-container">
-            <button id="create"><a href="createPost.html">Create</a></button>
-            <button id="account">Log In</button>
-        </div>
-    </header>
+<header>
+    <a href="index.html"><h1>Forum Board</h1></a>
+    <input type="text" placeholder="Search">
+    <div id="nav-button-container">
+        <a href="createPost.html"><button id="create">Create</button></a>
+        <a href="login.html"><button id="account">Log In</button></a>
+    </div>
+</header>
 
-    <body>
+<body>
 
-        <div class="content">
-            <h2>Create a New Post</h2>
-            <form class="post-form">
-                <div>
-                    <label for="title">Title</label>
-                    <input type="text" id="title" name="title" placeholder="Enter post title" required>
-                </div>
-    
-                <div>
-                    <label for="content">Post Content</label>
-                    <textarea id="content" name="content" placeholder="Write your post here..." required></textarea>
-                </div>
-    
-                <div class="form-buttons">
-                    <button type="button" class="btn btn-cancel">Cancel</button>
-                    <button type="submit" class="btn btn-submit">Post</button>
-                </div>
-            </form>
-        </div>
-    
-    </body>
+    <div class="content">
+        <h2>Create a New Post</h2>
+        <form class="post-form">
+            <div>
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" placeholder="Enter post title" required>
+            </div>
+
+            <div>
+                <label for="content">Post Content</label>
+                <textarea id="content" name="content" placeholder="Write your post here..." required></textarea>
+            </div>
+
+            <div class="form-buttons">
+                <button type="button" class="btn btn-cancel">Cancel</button>
+                <button type="submit" class="btn btn-submit">Post</button>
+            </div>
+        </form>
+    </div>
+
+</body>
 </html>
