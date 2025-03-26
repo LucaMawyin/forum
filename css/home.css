@@ -40,6 +40,10 @@ header{
     cursor: pointer;
 }
 
+#create a{
+    color: white;
+}
+
 #create:hover{
     background-color: #B3005E;
 }
