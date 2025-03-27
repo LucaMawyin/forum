@@ -67,7 +67,6 @@
 #replies {
     display: flex;
     flex-direction: column;
-    height: 5000px;
 }
 #reply-tab {
     display: flex;
