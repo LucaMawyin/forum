@@ -3,7 +3,6 @@ window.addEventListener("load", () => {
     $("#reply-tab").on("click", function (){
         $("#replies").toggle();
         if ($("#replies").is(":visible")){
-            console.log($("#replies").html);
             $("#reply-tab span").html("&#x25B2;");
             
         }
@@ -11,6 +10,14 @@ window.addEventListener("load", () => {
             $("#reply-tab span").html("&#x25BC;");
         }
         
+    });
+
+    $("#addreply").on("click", (e) => {
+        e.stopPropagation();
+        $("#replies").show();
+        $("#reply-tab span").html("&#x25B2;");
+
+
     });
     
 
