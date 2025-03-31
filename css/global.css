@@ -4,6 +4,10 @@
 :root{
     --font-primary: 'Manrope', sans-serif;
     --font-secondary: 'Bebas Neue', sans-serif;
+    --color-primary: #7A003C;
+    --color-primary-light: #B3005E;
+    --color-secondary: #FDBF57;
+    --color-secondary-dark: #E89E34;
     cursor: default;
 }
 

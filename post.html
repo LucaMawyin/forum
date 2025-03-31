@@ -58,9 +58,19 @@
             <div id="reply-tab">
                 <span style="font-size: 1.25em; margin-right: 1vw;">&#x25B2;</span>
                 <h3>Replies</h3>
+                <button id="addreply">Add Reply</button>
             </div>
+
             <div id="replies">
-        
+                <form id="replyeditor">
+                    <div id="replycontent">
+                        <textarea  name="content" placeholder="Write your reply here..." required></textarea>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="button" class="btn-cancel">Cancel</button>
+                        <button type="submit" class="btn-submit">Post</button>
+                    </div>
+                </form>
                 <div class="reply">
                     <div class="user-info">
                         <img src="images/user.png" alt="">
