@@ -15,3 +15,14 @@ textarea{
     resize: none;
     height: 100%;
 }
+
+.form-buttons{
+    display: flex;
+}
+
+.form-buttons button{
+    display: flex;
+    background-color: var(--color-primary);
+    width: 50%;
+    justify-content: center;
+}
