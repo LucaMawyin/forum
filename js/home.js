@@ -81,6 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Changing header title
     if (community) {
         const pageTitle = document.querySelector('h1');
-        pageTitle.textContent = `Subforum: ${community}`;
+        pageTitle.textContent = `Class: ${community}`;
     }
 });
