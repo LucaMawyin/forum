@@ -20,7 +20,8 @@
             if (!$success) {
                 die("oops, SQL command failed.");
             }
-            
+            header("Location: " . $_SERVER['PHP_SELF']); 
+            exit;
         }
         // GET list of all replies to display
         
@@ -123,7 +124,7 @@
                             <div class="image-content"></div>
                 
                             <div class="text-content">
-                                <p><?=$result["content"]?></p>
+                                <p style="white-space: pre-wrap;"><?=$result["content"]?></p>
                             </div>
                             <div class="buttons">
                                 <input type="button" value="Reply">
