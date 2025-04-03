@@ -1,7 +1,47 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
+<?php
+    include "includes/db.php";
+    try {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $userid = filter_input(INPUT_POST, "userid", FILTER_VALIDATE_INT);
+            $content = filter_input(INPUT_POST, "content", FILTER_SANITIZE_SPECIAL_CHARS);
+            $postid = 1;
+    
+            //2 prepare the command
+            $cmd = "INSERT INTO comments (user_id, content, post_id) VALUES (?, ?, ?);";
+            $args = [$userid, $content, $postid];
+            $stmt = $pdo->prepare($cmd);
+        
+            //3 execute the command
+            $success = $stmt->execute($args); 
+        
+            //4 check the result
+            if (!$success) {
+                die("oops, SQL command failed.");
+            }
+            
+        }
+        // GET list of all replies to display
+        
+    
+        //2 prepare the command
+        $cmd = "SELECT user_id, content, parent_comment_id FROM comments ORDER BY created_at DESC LIMIT 10;";
+        $stmt = $pdo->prepare($cmd);
+    
+        //3 execute the command
+        $success = $stmt->execute(); 
+    
+        //4 check the result
+        if (!$success) {
+            die("oops, SQL command failed.");
+        }      
+    }
+    catch (Exception $e) {
+        echo("$e");
+    }
+  
+?>
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width">
     <title>Forum Board Post</title>
@@ -28,6 +68,7 @@
         </nav>
 
         <div id="post-content">
+
             <div id="post">
                 <div class="user-info">
                     <img src="images/user.png" alt="">
@@ -63,14 +104,37 @@
 
             <div id="replies">
                 <form id="replyeditor" method="post" action="post.php">
+                    <input name="userid" type="hidden" value="1">
                     <div id="replycontent">
-                        <textarea  name="content" placeholder="Write your reply here..." required></textarea>
+                        <textarea name="content" placeholder="Write your reply here..." required></textarea>
                     </div>
                     <div class="form-buttons">
                         <button type="button" class="btn-cancel">Cancel</button>
                         <button type="submit" class="btn-submit">Post</button>
                     </div>
                 </form>
+                <?php
+                    while ($result = $stmt->fetch()) { ?>         
+                        <div class="reply">
+                            <div class="user-info">
+                                <img src="images/user.png" alt="">
+                                <p><?=$result["user_id"]?></p>
+                            </div>
+                            <div class="image-content"></div>
+                
+                            <div class="text-content">
+                                <p><?=$result["content"]?></p>
+                            </div>
+                            <div class="buttons">
+                                <input type="button" value="Reply">
+                                <input type="button" value="Like">
+                                <input type="button" value="Report">
+                            </div>
+                        </div>
+     
+                <?php 
+                    } ?>
+                
                 <div class="reply">
                     <div class="user-info">
                         <img src="images/user.png" alt="">
@@ -111,6 +175,7 @@
                         <input type="button" value="Like">
                         <input type="button" value="Report">
                     </div>
+
                 </div>
             </div>
         </div>
