@@ -157,8 +157,8 @@ body {
 #replies {
     display: flex;
     flex-direction: column;
-    width: 60vw;
-
+    width: 50vw;
+    margin-left: 5%;
 }
 #reply-tab {
     display: flex;
@@ -175,10 +175,10 @@ body {
 
 .reply {
 
-    width: 90%;
+    width: 100%;
     margin: 2vh;
-    margin-left: 8%;
-    margin-right: 2%;
+    margin-left: 0;
+    margin-right: 0;
     border-radius: 8px;
     border: 2px solid lightslategray;
     background-color: white;
