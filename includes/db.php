@@ -1,6 +1,6 @@
 <?php
   $host = 'localhost';
-  $dbname = 'test';
+  $dbname = 'mawyinl_db';
   $username = 'root';
   $password = '';
 
