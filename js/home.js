@@ -7,17 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             title: 'This is a Title 1',
             content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sagittis augue lectus...',
-            link: 'post.html'
+            link: 'post.php'
         },
         {
             title: 'This is a Title 2',
             content: 'Phasellus condimentum mauris ut magna efficitur cursus. Nulla facilisi...',
-            link: 'post.html'
+            link: 'post.php'
         },
         {
             title: 'This is a Title 3',
             content: 'Aenean porttitor mattis bibendum. Duis varius ipsum risus, eu pretium diam...',
-            link: 'post.html'
+            link: 'post.php'
         }
     ];
 
