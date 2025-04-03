@@ -20,6 +20,16 @@
         </div>
     </footer>
 
-    <?php if (isset($extraScripts)): echo $extraScripts; endif; ?>
+    <?php 
+    if (isset($extraScripts)):
+        if (is_array($extraScripts)):
+            foreach ($extraScripts as $script):
+                echo '<script src="' . htmlspecialchars($script) . '" defer></script>';
+            endforeach;
+        else:
+            echo $extraScripts;
+        endif;
+    endif;
+    ?>
 </body>
 </html>

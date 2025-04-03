@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'CodeForum - Home';
-$extraStyles = '';
+$extraStyles = [];
 include 'includes/partials/header.php';
 include 'includes/partials/sidebar-empty.php';
 ?>
@@ -26,6 +26,6 @@ include 'includes/partials/sidebar-empty.php';
 </main>
 
 <?php
-$extraScripts = '<script src="/assets/js/home.js" defer></script>';
+$extraScripts = ['/assets/js/home.js'];
 include 'includes/partials/footer.php';
 ?>

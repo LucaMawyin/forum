@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $pageTitle ?? 'CodeForum'; ?></title>
     <link rel="stylesheet" href="/assets/css/global.css">
-    <?php if (isset($extraStyles)): echo $extraStyles; endif; ?>
+    <?php 
+    if (isset($extraStyles)): 
+        if (is_array($extraStyles)):
+            foreach ($extraStyles as $style):
+                echo '<link rel="stylesheet" href="' . htmlspecialchars($style) . '">';
+            endforeach;
+        else:
+            echo $extraStyles; 
+        endif;
+    endif; 
+    ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
 </head>
 <body>
