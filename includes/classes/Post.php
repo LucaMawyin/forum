@@ -228,7 +228,7 @@ class Post {
   public function get_posts_by_course($course_id, $sort_by = 'recent', $page = 1, $limit = 10) {
     $offset = ($page - 1) * $limit;
 
-    $query = "SELECT p.*
+    $query = "SELECT p.*,
                 u.username,
                 (SELECT COUNT(*) FROM comments WHERE post_id = p.post_id AND is_deleted = FALSE) as comment_count
               FROM " . $this->table_name . " p
@@ -241,7 +241,7 @@ class Post {
         break;
       case 'unanswered':
         $query .= " AND (SELECT COUNT(*) FROM comments WHERE post_id = p.post_id AND is_deleted = FALSE) = 0
-                    ORDER BY p.created_at DESC";
+                  ORDER BY p.created_at DESC";
         break;
       default:
         $query .= " ORDER BY p.is_pinned DESC, p.created_at DESC";

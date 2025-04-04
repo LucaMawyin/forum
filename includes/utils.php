@@ -66,3 +66,43 @@ function linkify($text) {
 function return_response($success, $message) {
   return array("success" => $success, "message" => $message);
 }
+
+function format_post_content($content) {
+  // Convert Markdown to HTML manually
+
+  // Bold
+  $content = preg_replace('/\*\*(.*?)\*\*/s', '<strong>$1</strong>', $content);
+  $content = preg_replace('/__(.*?)__/s', '<strong>$1</strong>', $content);
+
+  // Italic
+  $content = preg_replace('/\*(.*?)\*/s', '<em>$1</em>', $content);
+  $content = preg_replace('/_(.*?)_/s', '<em>$1</em>', $content);
+
+  // Links
+  $content = preg_replace('/\[(.*?)\]\((.*?)\)/s', '<a href="$2">$1</a>', $content);
+
+  // Headings
+  $content = preg_replace('/^(#)(.*?)$/m', '<h1>$2</h1>', $content);
+  $content = preg_replace('/^(##)(.*?)$/m', '<h2>$2</h2>', $content);
+  $content = preg_replace('/^(###)(.*?)$/m', '<h3>$2</h3>', $content);
+  $content = preg_replace('/^(####)(.*?)$/m', '<h4>$2</h4>', $content);
+  $content = preg_replace('/^(#####)(.*?)$/m', '<h5>$2</h5>', $content);
+  $content = preg_replace('/^(######)(.*?)$/m', '<h6>$2</h6>', $content);
+
+  // Lists (unordered)
+  $content = preg_replace('/^\s*[-*]\s+(.*?)$/m', '<ul><li>$1</li></ul>', $content);
+
+  // Lists (ordered)
+  $content = preg_replace('/^\s*\d+\.\s+(.*?)$/m', '<ol><li>$1</li></ol>', $content);
+
+  // Code (single-line)
+  $content = preg_replace('/\`(.*?)\`/s', '<code>$1</code>', $content);
+
+  // Newlines to paragraph and line break
+  $content = '<p>' . str_replace("\n\n", '</p><p>', $content) . '</p>';
+  $content = str_replace("\n", '<br>', $content);
+
+  $content = linkify($content);
+
+  return $content;
+}

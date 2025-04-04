@@ -67,21 +67,34 @@
   min-width: 100px;
 }
 
-/* Join course button */
-.join-course-btn {
-  margin-top: var(--spacing-md);
-  background-color: var(--color-primary);
-  color: white;
-  border: none;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color var(--transition-normal);
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-xl);
+  gap: var(--spacing-xs);
 }
 
-.join-course-btn:hover {
-  background-color: var(--color-primary-light);
+.page-link {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: all var(--transition-normal);
+}
+
+.page-link:hover {
+  background-color: var(--color-secondary-lighter);
+  color: var(--color-text-primary);
+  border-color: var(--color-secondary);
+}
+
+.page-link.active {
+  background-color: var(--color-secondary);
+  color: var(--color-text-primary);
+  border-color: var(--color-secondary);
+  font-weight: 600;
 }
 
 /* Responsive adjustments */
