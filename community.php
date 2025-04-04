@@ -1,15 +1,33 @@
 <?php
 $pageTitle = 'CodeForum - Community';
 $extraStyles = ['/assets/css/community.css'];
+
+require_once 'includes/utils.php';
+require_once 'includes/config/database.php';
+
 include 'includes/partials/header.php';
-include 'includes/partials/sidebar-empty.php';
+include 'includes/partials/sidebar.php';
+
+$db = new Database();
+$conn = $db->get_connection();
+
+if (!isset($_GET['id'])) {
+    redirect("index.php");
+}
+
+require_once 'includes/classes/Course.php';
+$course_obj = new Course($conn);
+$course_id = $_GET['id'];
+$course = $course_obj->get_course_by_id($course_id);
+
+$page_title = "Course: " . $course['course_code'];
 ?>
 
 <main class="home-content">
     <div class="community-header">
         <div class="community-info">
-            <h1 id="community-title">Course Title</h1>
-            <p id="community-description">Course description will appear here.</p>
+            <h1 id="community-title"><?php echo htmlspecialchars($course['course_code']); ?>: <?php echo htmlspecialchars($course['course_name']);?></h1>
+            <p id="community-description"><?php echo htmlspecialchars($course['description']); ?></p>
         </div>
         <div class="community-stats">
             <div class="stat">
@@ -17,7 +35,7 @@ include 'includes/partials/sidebar-empty.php';
                 <span class="stat-label">Posts</span>
             </div>
             <div class="stat">
-                <span class="stat-value" id="member-count">0</span>
+                <span class="stat-value" id="member-count"><?php echo $course['student_count']; ?></span>
                 <span class="stat-label">Members</span>
             </div>
         </div>
@@ -43,6 +61,5 @@ include 'includes/partials/sidebar-empty.php';
 </main>
 
 <?php
-$extraScripts = ['/assets/js/home.js'];
 include 'includes/partials/footer.php';
 ?>

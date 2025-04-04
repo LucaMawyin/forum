@@ -2,7 +2,7 @@
 $pageTitle = 'CodeForum - Home';
 $extraStyles = [];
 include 'includes/partials/header.php';
-include 'includes/partials/sidebar-empty.php';
+include 'includes/partials/sidebar.php';
 ?>
 
 <main class="home-content">
@@ -26,6 +26,5 @@ include 'includes/partials/sidebar-empty.php';
 </main>
 
 <?php
-$extraScripts = ['/assets/js/home.js'];
 include 'includes/partials/footer.php';
 ?>
