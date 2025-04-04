@@ -1,45 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-    include "includes/db.php";
-    try {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $userid = filter_input(INPUT_POST, "userid", FILTER_VALIDATE_INT);
-            $content = filter_input(INPUT_POST, "content", FILTER_SANITIZE_SPECIAL_CHARS);
-            $postid = 1;
-    
-            //2 prepare the command
-            $cmd = "INSERT INTO comments (user_id, content, post_id) VALUES (?, ?, ?);";
-            $args = [$userid, $content, $postid];
-            $stmt = $pdo->prepare($cmd);
-        
-            //3 execute the command
-            $success = $stmt->execute($args); 
-        
-            //4 check the result
-            if (!$success) {
-                die("oops, SQL command failed.");
-            }
-            
-        }
-        // GET list of all replies to display
-        
-    
+
+include "includes/db.php";
+try {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $userid = filter_input(INPUT_POST, "userid", FILTER_VALIDATE_INT);
+        $content = filter_input(INPUT_POST, "content", FILTER_SANITIZE_SPECIAL_CHARS);
+        $postid = 1;
+
         //2 prepare the command
-        $cmd = "SELECT user_id, content, parent_comment_id FROM comments ORDER BY created_at DESC LIMIT 10;";
+        $cmd = "INSERT INTO comments (user_id, content, post_id) VALUES (?, ?, ?);";
+        $args = [$userid, $content, $postid];
         $stmt = $pdo->prepare($cmd);
     
         //3 execute the command
-        $success = $stmt->execute(); 
+        $success = $stmt->execute($args); 
     
         //4 check the result
         if (!$success) {
             die("oops, SQL command failed.");
-        }      
+        }
+        
     }
-    catch (Exception $e) {
-        echo("$e");
-    }
+    // GET list of all replies to display
+    
+
+    //2 prepare the command
+    $cmd = "SELECT user_id, content, parent_comment_id FROM comments ORDER BY created_at DESC LIMIT 10;";
+    $stmt = $pdo->prepare($cmd);
+
+    //3 execute the command
+    $success = $stmt->execute(); 
+
+    //4 check the result
+    if (!$success) {
+        die("oops, SQL command failed.");
+    }      
+}
+catch (Exception $e) {
+    echo("$e");
+}
+
+// Fetching communities
+$communities = [];
+try {
+    $stmt = $pdo->query("SELECT course_code FROM courses"); // Fetch course_code (communities)
+    $communities = $stmt->fetchAll(PDO::FETCH_COLUMN); // Fetch course_code as an array
+} catch (PDOException $e) {
+    $error_message = "Error fetching communities: " . $e->getMessage();
+}
   
 ?>
 <head>
@@ -64,6 +74,15 @@
 
         <nav class="communities">
             <ul>
+                <?php if (!empty($communities)): ?>
+                    <?php foreach ($communities as $community): ?>
+                        <li>
+                            <a href="community.php?community=<?= urlencode($community) ?>"><?= htmlspecialchars($community) ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li>No communities available.</li>
+                <?php endif; ?>
             </ul>
         </nav>
 
