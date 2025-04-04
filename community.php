@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'CodeForum - Community';
-$extraStyles = ['/assets/css/community.css'];
+$extraStyles = ['assets/css/community.css'];
 
 require_once 'includes/utils.php';
 require_once 'includes/config/database.php';

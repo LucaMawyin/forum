@@ -15,7 +15,7 @@ $all_courses = $course_obj->get_all_courses();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $page_title ?? 'CodeForum'; ?></title>
-    <link rel="stylesheet" href="/assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/global.css">
     <?php 
     if (isset($extraStyles)): 
         if (is_array($extraStyles)):
@@ -37,7 +37,7 @@ $all_courses = $course_obj->get_all_courses();
             <button class="search-btn"><i class="fa fa-search"></i></button>
         </div>
         <div id="nav-button-container">
-            <a href="createPost.php"><button id="create">Create Post</button></a>
+            <a href="create-post.php"><button id="create">Create Post</button></a>
             <a href="login.php"><button id="account">Log In</button></a>
         </div>
     </header>
