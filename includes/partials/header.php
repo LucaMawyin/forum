@@ -4,10 +4,6 @@ require_once 'includes/utils.php';
 
 $database = new Database();
 $conn = $database->get_connection();
-
-require_once 'includes/classes/Course.php';
-$course_obj = new Course($conn);
-$all_courses = $course_obj->get_all_courses();
 ?>
 <!DOCTYPE html>
 <html lang="en">

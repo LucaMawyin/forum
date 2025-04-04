@@ -19,6 +19,22 @@ require_once 'includes/classes/Course.php';
 $course_obj = new Course($conn);
 $course_id = $_GET['id'];
 $course = $course_obj->get_course_by_id($course_id);
+
+if (!$course) {
+    $page_title = "Course Not Found";
+    echo '<div class="content">';
+    echo '<main class="home-content">';
+    echo '<div class="error-message">';
+    echo '<h2>Course Not Found</h2>';
+    echo '<p>The course you are looking for does not exist.</p>';
+    echo '</div>';
+    echo '</main>';
+    echo '</div>';
+    include 'includes/partials/footer.php';
+
+    exit;
+}
+
 $course_stats = $course_obj->get_post_stats($course_id);
 
 $page_title = "Course: " . $course['course_code'];
