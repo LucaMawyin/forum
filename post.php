@@ -1,57 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+    include "includes/db.php";
 
-include "includes/db.php";
-try {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $userid = filter_input(INPUT_POST, "userid", FILTER_VALIDATE_INT);
-        $content = filter_input(INPUT_POST, "content", FILTER_SANITIZE_SPECIAL_CHARS);
-        $postid = 1;
-
-        //2 prepare the command
-        $cmd = "INSERT INTO comments (user_id, content, post_id) VALUES (?, ?, ?);";
-        $args = [$userid, $content, $postid];
-        $stmt = $pdo->prepare($cmd);
-    
-        //3 execute the command
-        $success = $stmt->execute($args); 
-    
-        //4 check the result
-        if (!$success) {
-            die("oops, SQL command failed.");
+    // Initialize the post variable
+    $post = null;
+    try {
+        // Fetch the post_id from the URL (ensure it exists)
+        if (isset($_GET['post_id'])) {
+            $postid = (int)$_GET['post_id'];  // Get post_id from URL
+        } else {
+            die("Post ID is missing");
         }
-        
+
+        // Fetch post details from the database
+        $cmd = "SELECT p.post_id, p.title, p.content, u.username
+                FROM posts p
+                JOIN users u ON p.user_id = u.user_id
+                WHERE p.post_id = ?";
+        $stmt = $pdo->prepare($cmd);
+        $stmt->execute([$postid]);
+        $post = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Check if the post exists
+        if (!$post) {
+            die("Post not found.");
+        }
+
+        // Handle comment submission
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $userid = filter_input(INPUT_POST, "userid", FILTER_VALIDATE_INT);
+            $content = filter_input(INPUT_POST, "content", FILTER_SANITIZE_SPECIAL_CHARS);
+
+            // Prepare the SQL command to insert a new comment
+            $cmd = "INSERT INTO comments (user_id, content, post_id) VALUES (?, ?, ?);";
+            $args = [$userid, $content, $postid];
+            $stmt = $pdo->prepare($cmd);
+
+            // Execute the command
+            $success = $stmt->execute($args);
+
+            // Check if the insertion was successful
+            if (!$success) {
+                die("Oops, SQL command failed.");
+            }
+
+            // Redirect to the same page to avoid re-submission of the form
+            header("Location: post.php?post_id=$postid");
+            exit;
+        }
+
+        // Fetch comments for the post
+        $cmd = "SELECT c.user_id, c.content, c.created_at, u.username
+                FROM comments c
+                JOIN users u ON c.user_id = u.user_id
+                WHERE c.post_id = ?
+                ORDER BY c.created_at DESC";
+        $stmt_comments = $pdo->prepare($cmd); // Use a different statement for comments
+        $stmt_comments->execute([$postid]);
+        $comments = $stmt_comments->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
     }
-    // GET list of all replies to display
-    
-
-    //2 prepare the command
-    $cmd = "SELECT user_id, content, parent_comment_id FROM comments ORDER BY created_at DESC LIMIT 10;";
-    $stmt = $pdo->prepare($cmd);
-
-    //3 execute the command
-    $success = $stmt->execute(); 
-
-    //4 check the result
-    if (!$success) {
-        die("oops, SQL command failed.");
-    }      
-}
-catch (Exception $e) {
-    echo("$e");
-}
-
-// Fetching communities
-$communities = [];
-try {
-    $stmt = $pdo->query("SELECT course_code FROM courses"); // Fetch course_code (communities)
-    $communities = $stmt->fetchAll(PDO::FETCH_COLUMN); // Fetch course_code as an array
-} catch (PDOException $e) {
-    $error_message = "Error fetching communities: " . $e->getMessage();
-}
-  
 ?>
+
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width">
     <title>Forum Board Post</title>
@@ -74,47 +87,32 @@ try {
 
         <nav class="communities">
             <ul>
-                <?php if (!empty($communities)): ?>
-                    <?php foreach ($communities as $community): ?>
-                        <li>
-                            <a href="community.php?community=<?= urlencode($community) ?>"><?= htmlspecialchars($community) ?></a>
-                        </li>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <li>No communities available.</li>
-                <?php endif; ?>
             </ul>
         </nav>
 
         <div id="post-content">
 
-            <div id="post">
-                <div class="user-info">
-                    <img src="images/user.png" alt="">
-                    <p>FirstName LastName</p>
+            <?php if ($post): ?>
+                <div id="post">
+                    <div class="user-info">
+                        <img src="images/user.png" alt="">
+                        <p><?= htmlspecialchars($post['username']) ?></p>
+                    </div>
+                    <div class="text-content">
+                        <h3><?= htmlspecialchars($post['title']) ?></h3>
+                        <p><?= nl2br(htmlspecialchars($post['content'])) ?></p>
+                    </div>
+                    <div id="image-content"></div>
+
+                    <div class="buttons">
+                        <input type="button" value="Reply">
+                        <input type="button" value="Like">
+                        <input type="button" value="Report">
+                    </div>
                 </div>
-                <div class="text-content">
-                    <h3>
-                        title
-                    </h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sagittis augue lectus, ac tincidunt tellus ornare volutpat. 
-                        Phasellus condimentum mauris ut magna efficitur cursus. Nulla facilisi. Etiam fringilla ante tristique, interdum quam vitae, interdum ipsum. 
-                        Donec et lorem quam. Donec efficitur pharetra odio, sagittis vulputate mi ornare eget. Quisque id tincidunt dui. Pellentesque ac nulla erat. 
-                        Aenean porttitor mattis bibendum. Duis varius ipsum risus, eu pretium diam ultrices ut. Aliquam rhoncus ullamcorper nisl, in faucibus nibh rutrum at. 
-                        Curabitur aliquet eu magna ut porttitor. Fusce ut neque id nulla commodo fermentum sed nec elit. Nunc at orci fermentum, cursus urna ac, imperdiet arcu. 
-                        Nullam lectus lorem, blandit vitae felis ullamcorper, vulputate condimentum lacus. Curabitur convallis, justo in rhoncus facilisis, ligula lectus tincidunt velit, eget fermentum massa nisl id tortor. 
-                        Nulla pulvinar hendrerit suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer auctor orci id nisl pulvinar tempor. Nullam eros nulla, porttitor et tristique eget, maximus sed leo.
-                    </p>
-                </div>
-                <div id="image-content"></div>
-        
-                <div class="buttons">
-                    <input type="button"  value="Reply">
-                    <input type="button" value="Like">
-                    <input type="button" value="Report">
-                </div>
-            </div>
+            <?php else: ?>
+                <p>Post not found.</p>
+            <?php endif; ?>
             <div id="reply-tab">
                 <span style="font-size: 1.25em; margin-right: 1vw;">&#x25B2;</span>
                 <h3>Replies</h3>
@@ -122,7 +120,7 @@ try {
             </div>
 
             <div id="replies">
-                <form id="replyeditor" method="post" action="post.php">
+                <form id="replyeditor" method="post" action="post.php?post_id=<?= $postid ?>">
                     <input name="userid" type="hidden" value="1">
                     <div id="replycontent">
                         <textarea name="content" placeholder="Write your reply here..." required></textarea>
@@ -132,70 +130,24 @@ try {
                         <button type="submit" class="btn-submit">Post</button>
                     </div>
                 </form>
-                <?php
-                    while ($result = $stmt->fetch()) { ?>         
-                        <div class="reply">
-                            <div class="user-info">
-                                <img src="images/user.png" alt="">
-                                <p><?=$result["user_id"]?></p>
-                            </div>
-                            <div class="image-content"></div>
-                
-                            <div class="text-content">
-                                <p><?=$result["content"]?></p>
-                            </div>
-                            <div class="buttons">
-                                <input type="button" value="Reply">
-                                <input type="button" value="Like">
-                                <input type="button" value="Report">
-                            </div>
+                <?php foreach ($comments as $comment): ?>
+                    <div class="reply">
+                        <div class="user-info">
+                            <img src="images/user.png" alt="">
+                            <p><?= htmlspecialchars($comment['username']) ?></p>
                         </div>
-     
-                <?php 
-                    } ?>
-                
-                <div class="reply">
-                    <div class="user-info">
-                        <img src="images/user.png" alt="">
-                        <p>FirstName LastName</p>
-                    </div>
-                    <div class="image-content"></div>
-            
-        
-                    <div class="text-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sagittis augue lectus, ac tincidunt tellus ornare volutpat. 
-                            neque id nulla commodo fermentum sed nec elit. Nunc at orci fermentum, cursus urna ac, imperdiet arcu. 
-                            Nullam lectus lorem, blandit vitae felis ullamcorper, vulputate condimentum lacus. Curabitur convallis, justo in rhoncus facilisis, ligula lectus tincidunt velit, eget fermentum massa nisl id tortor. 
-                            Nulla pulvinar hendrerit suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer auctor orci id nisl pulvinar tempor. Nullam eros nulla, porttitor et tristique eget, maximus sed leo.
-                        </p>
-                    </div>
-                    <div class="buttons">
-                        <input type="button"  value="Reply">
-                        <input type="button" value="Like">
-                        <input type="button" value="Report">
-                    </div>
-                </div>
-                
-                <div class="reply">
-                    <div class="user-info">
-                        <img src="images/user.png" alt="">
-                        <p>FirstName LastName</p>
-                    </div>
-                    <div class="image-content"></div>
-            
-        
-                    <div class="text-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sagittis augue lectus, ac tincidunt tellus ornare volutpat. 
-                            neque id nulla commodo fermentum sed nec elit. Nunc at orci fermentum, cursus urna ac, imperdiet arcu. 
-                        </p>
-                    </div>
-                    <div class="buttons">
-                        <input type="button"  value="Reply">
-                        <input type="button" value="Like">
-                        <input type="button" value="Report">
-                    </div>
+                        <div class="image-content"></div>
 
-                </div>
+                        <div class="text-content">
+                            <p><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
+                        </div>
+                        <div class="buttons">
+                            <input type="button" value="Reply">
+                            <input type="button" value="Like">
+                            <input type="button" value="Report">
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     
