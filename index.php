@@ -17,8 +17,8 @@ try {
 // Fetching communities
 $communities = [];
 try {
-    $stmt = $pdo->query("SELECT course_code FROM courses"); // Fetch course_code (communities)
-    $communities = $stmt->fetchAll(PDO::FETCH_COLUMN); // Fetch course_code as an array
+    $stmt = $pdo->query("SELECT course_code FROM courses");
+    $communities = $stmt->fetchAll(PDO::FETCH_COLUMN);
 } catch (PDOException $e) {
     $error_message = "Error fetching communities: " . $e->getMessage();
 }

@@ -6,12 +6,8 @@
     // Initialize the post variable
     $post = null;
     try {
-        // Fetch the post_id from the URL (ensure it exists)
-        if (isset($_GET['post_id'])) {
-            $postid = (int)$_GET['post_id'];  // Get post_id from URL
-        } else {
-            die("Post ID is missing");
-        }
+
+        $postid = (int)$_GET['post_id'];  // Get post_id from URL
 
         // Fetch post details from the database
         $cmd = "SELECT p.post_id, p.title, p.content, u.username
@@ -63,6 +59,15 @@
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
+
+    // Fetching communities
+    $communities = [];
+    try {
+        $stmt = $pdo->query("SELECT course_code FROM courses");
+        $communities = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    } catch (PDOException $e) {
+        $error_message = "Error fetching communities: " . $e->getMessage();
+    }
 ?>
 
 <head>
@@ -85,8 +90,17 @@
 <body>
     <div class="content">  
 
-        <nav class="communities">
+    <nav class="communities">
             <ul>
+                <?php if (!empty($communities)): ?>
+                    <?php foreach ($communities as $community): ?>
+                        <li>
+                            <a href="community.php?community=<?= urlencode($community) ?>"><?= htmlspecialchars($community) ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <li>No communities available.</li>
+                <?php endif; ?>
             </ul>
         </nav>
 
