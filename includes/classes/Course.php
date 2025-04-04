@@ -85,13 +85,133 @@ class Course {
     return array("success" => false, "message" => "Unable to create course");
   }
 
-  // update_course
+  public function update_course($course_id, $course_code, $course_name, $description, $instructor_id = null) {
+    if (empty($course_id) || empty($course_code) || empty($course_name)) {
+      return array("success" => false, "message" => "Course ID, code, and name are required");
+    }
 
-  // delete_course
+    $existing_course = $this->get_course_by_id($course_id);
+    if (!$existing_course) {
+      return array("success" => false, "message" => "Course not found");
+    }
 
-  // gen_enrolled_users
+    if ($course_code !== $existing_course['course_code'] && $this->course_code_exists($course_code)) {
+      return array("success" => true, "message" => "Course code already exists");
+    }
 
-  // get_post_stats
+    $query = "UPDATE " . $this->table_name . "
+              SET course_code = :course_code,
+                  course_name = :course_name,
+                  description = :description,
+                  instructor_id = :instructor_id,
+                  updated_at = CURRENT_TIMESTAMP
+              WHERE course_id = :course_id";
+    
+    $stmt = $this->conn->prepare($query);
+    $course_code = clean_input($course_code);
+    $course_name = clean_input($course_name);
+    $description = clean_input($description);
+
+    $stmt->bindParam(":course_id", $course_id);
+    $stmt->bindParam(":course_code", $course_code);
+    $stmt->bindParam(":course_name", $course_name);
+    $stmt->bindParam(":description", $description);
+    $stmt->bindParam(":instructor_id", $instructor_id);
+
+    if ($stmt->execute()) {
+      return array("success" => true, "message" => "Course updated successfully");
+    }
+
+    return array("success" => false, "message" => "Unable to update course");
+  }
+
+  public function delete_course($course_id) {
+    $existing_course = $this->get_course_by_id($course_id);
+    if (!$existing_course) {
+      return array("success" => false, "message" => "Course not found");
+    }
+
+    try {
+      $this->conn->beginTransaction();
+
+      $query = "DELETE c from comments c
+                JOIN posts p ON c.post_id = p.post_id
+                WHERE p.course_id = :course_id";
+      $stmt = $this->conn->prepare($query);
+      $stmt->bindParam(':course_id', $course_id);
+      $stmt->execute();
+
+      $query = "DELETE FROM posts WHERE course_id = :course_id";
+      $stmt = $this->conn->prepare($query);
+      $stmt->bindParam(':course_id', $course_id);
+      $stmt->execute();
+      
+      $query = "DELETE FROM user_courses WHERE course_id = :course_id";
+      $stmt = $this->conn->prepare($query);
+      $stmt->bindParam(':course_id', $course_id);
+      $stmt->execute();
+      
+      $query = "DELETE FROM " . $this->table_name . " WHERE course_id = :course_id";
+      $stmt = $this->conn->prepare($query);
+      $stmt->bindParam(':course_id', $course_id);
+      $stmt->execute();
+
+      $this->conn->commit();
+
+      return array("success" => true, "message" => "Course deleted successfully");
+    } catch (Exception $e) {
+      $this->conn->rollBack();
+      return array("success" => false, "message" => "Error deleting course: " . $e->getMessage());
+    }
+  }
+
+  public function get_enrolled_users($course_id) {
+    $query = "SELECT u.user_id, u.username, u.email, uc.role as course_role, uc.enrollement_date
+              FROM users u
+              JOIN user_courses uc ON u.user_id = uc.user_id
+              WHERE uc.course_id = :course_id
+              ORDER BY uc.role, u.username";
+    
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":course_id", $course_id);
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+  }
+
+  public function get_post_stats($course_id) {
+    $query = "SELECT COUNT(*) as total_posts FROM posts 
+             WHERE course_id = :course_id AND is_deleted = FALSE";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':course_id', $course_id);
+    $stmt->execute();
+    $total_posts = $stmt->fetch()['total_posts'];
+    
+    $query = "SELECT COUNT(*) as recent_posts FROM posts 
+             WHERE course_id = :course_id AND is_deleted = FALSE 
+             AND created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':course_id', $course_id);
+    $stmt->execute();
+    $recent_posts = $stmt->fetch()['recent_posts'];
+    
+    $query = "SELECT COUNT(*) as unanswered_posts FROM posts p
+             WHERE p.course_id = :course_id AND p.is_deleted = FALSE
+             AND NOT EXISTS (
+                 SELECT 1 FROM comments c 
+                 WHERE c.post_id = p.post_id AND c.is_deleted = FALSE
+             )";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':course_id', $course_id);
+    $stmt->execute();
+    $unanswered_posts = $stmt->fetch()['unanswered_posts'];
+    
+    return array(
+        'total_posts' => $total_posts,
+        'recent_posts' => $recent_posts,
+        'unanswered_posts' => $unanswered_posts
+    );
+  }
 
   private function course_code_exists($course_code) {
     $query = "SELECT course_id FROM " . $this->table_name . " WHERE course_code = :course_code";

@@ -19,6 +19,7 @@ require_once 'includes/classes/Course.php';
 $course_obj = new Course($conn);
 $course_id = $_GET['id'];
 $course = $course_obj->get_course_by_id($course_id);
+$course_stats = $course_obj->get_post_stats($course_id);
 
 $page_title = "Course: " . $course['course_code'];
 ?>
@@ -31,7 +32,7 @@ $page_title = "Course: " . $course['course_code'];
         </div>
         <div class="community-stats">
             <div class="stat">
-                <span class="stat-value" id="post-count">0</span>
+                <span class="stat-value" id="post-count"><?php echo $course_stats['total_posts']; ?></span>
                 <span class="stat-label">Posts</span>
             </div>
             <div class="stat">
