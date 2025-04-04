@@ -1,4 +1,6 @@
 <?php
+include_once "includes/utils.php";
+
 class Course {
   private $conn;
   private $table_name = "courses";
@@ -57,11 +59,11 @@ class Course {
 
   public function create_course($course_code, $course_name, $description = NULL, $instructor_id = null) {
     if (empty($course_code) || empty($course_name)) {
-      return array("success" => false, "message" => "Course code and name are required");
+      return return_response(false, "Course code and name are required");
     }
 
     if ($this->course_code_exists($course_code)) {
-      return array("success" => false, "message" => "Course code already exists");
+      return return_response(false, "Course code already exists");
     }
 
     $query = "INSERT INTO " . $this->table_name . "
@@ -82,21 +84,21 @@ class Course {
       );
     }
 
-    return array("success" => false, "message" => "Unable to create course");
+    return return_response(false, "Unable to create course");
   }
 
   public function update_course($course_id, $course_code, $course_name, $description, $instructor_id = null) {
     if (empty($course_id) || empty($course_code) || empty($course_name)) {
-      return array("success" => false, "message" => "Course ID, code, and name are required");
+      return return_response(false, "Course ID, code, and name are required");
     }
 
     $existing_course = $this->get_course_by_id($course_id);
     if (!$existing_course) {
-      return array("success" => false, "message" => "Course not found");
+      return return_response(false, "Course not found");
     }
 
     if ($course_code !== $existing_course['course_code'] && $this->course_code_exists($course_code)) {
-      return array("success" => true, "message" => "Course code already exists");
+      return return_response(true, "Course code already exists");
     }
 
     $query = "UPDATE " . $this->table_name . "
@@ -119,16 +121,16 @@ class Course {
     $stmt->bindParam(":instructor_id", $instructor_id);
 
     if ($stmt->execute()) {
-      return array("success" => true, "message" => "Course updated successfully");
+      return return_response(true, "Course updated successfully");
     }
 
-    return array("success" => false, "message" => "Unable to update course");
+    return return_response(false, "Unable to update course");
   }
 
   public function delete_course($course_id) {
     $existing_course = $this->get_course_by_id($course_id);
     if (!$existing_course) {
-      return array("success" => false, "message" => "Course not found");
+      return return_response(false, "Course not found");
     }
 
     try {
@@ -158,7 +160,7 @@ class Course {
 
       $this->conn->commit();
 
-      return array("success" => true, "message" => "Course deleted successfully");
+      return return_response(true, "Course deleted successfully");
     } catch (Exception $e) {
       $this->conn->rollBack();
       return array("success" => false, "message" => "Error deleting course: " . $e->getMessage());

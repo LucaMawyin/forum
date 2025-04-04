@@ -62,3 +62,7 @@ function linkify($text) {
     $text
   );
 }
+
+function return_response($success, $message) {
+  return array("success" => $success, "message" => $message);
+}
