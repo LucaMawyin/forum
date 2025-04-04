@@ -51,10 +51,10 @@
     <link rel="stylesheet" href="css/post.css">
 </head>
 <header>
-    <a href="index.html"><h1>Forum Board</h1></a>
+    <a href="index.php"><h1>Forum Board</h1></a>
     <input type="text" placeholder="Search">
     <div id="nav-button-container">
-        <a href="createPost.html"><button id="create">Create</button></a>
+        <a href="createPost.php"><button id="create">Create</button></a>
         <a href="login.html"><button id="account">Log In</button></a>
     </div>
 </header>
