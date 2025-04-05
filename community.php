@@ -83,7 +83,7 @@ $page_title = "Course: " . $course['course_code'];
         <a href="post.php?id=<?php echo $post['post_id']; ?>" class="post-link">
           <div class="post-tile <?php echo $post['is_pinned'] ? 'pinned' : ''; ?>">
             <h3>
-              <?php echo htmlspecialchars($post['title']); ?>
+              <?php echo format_title_content($post['title']); ?>
               <?php if ($post['is_pinned']): ?>
                 <span class="pinned-badge">Pinned</span>
               <?php endif; ?>
