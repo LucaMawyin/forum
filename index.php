@@ -1,6 +1,5 @@
 <?php
 $pageTitle = 'CodeForum - Home';
-$extraStyles = [];
 include 'includes/partials/header.php';
 include 'includes/partials/sidebar.php';
 ?>

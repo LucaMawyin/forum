@@ -21,13 +21,13 @@
     </footer>
 
     <?php 
-    if (isset($extraScripts)):
-        if (is_array($extraScripts)):
-            foreach ($extraScripts as $script):
-                echo '<script src="' . htmlspecialchars($script) . '" defer></script>';
+    if (isset($extra_scripts)):
+        if (is_array($extra_scripts)):
+            foreach ($extra_scripts as $script):
+                echo '<script type="module" src="' . htmlspecialchars($script) . '" defer></script>';
             endforeach;
         else:
-            echo $extraScripts;
+            echo $extra_scripts;
         endif;
     endif;
     ?>

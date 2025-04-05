@@ -1,0 +1,245 @@
+/* 
+ * CodeForum Create Post Page Styles
+ * Team Leibniz
+ */
+
+ .create-content {
+  flex: 1;
+  padding: var(--spacing-lg);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.create-header {
+  margin-bottom: var(--spacing-lg);
+}
+
+.create-header h2 {
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-primary);
+}
+
+.create-header p {
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Post form */
+.post-form {
+  background-color: white;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-family: var(--font-primary);
+  transition: border-color var(--transition-normal);
+}
+
+.form-group input[type="text"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(122, 0, 60, 0.1);
+}
+
+.form-group select {
+  cursor: pointer;
+  background-color: white;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px;
+  padding-right: 2.5rem;
+  appearance: none;
+}
+
+.form-group textarea {
+  min-height: 250px;
+  resize: vertical;
+  font-family: var(--font-code);
+  line-height: 1.5;
+}
+
+.input-help {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-xs);
+}
+
+/* Preview section */
+.form-preview {
+  margin-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-preview h3 {
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.preview-area {
+  background-color: #f8f9fa;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  min-height: 150px;
+  overflow-x: auto;
+}
+
+.preview-placeholder {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* Preview content styling */
+.preview-area h1, .preview-area h2, .preview-area h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.preview-area p {
+  margin-bottom: 1em;
+  line-height: 1.6;
+}
+
+.preview-area code {
+  font-family: var(--font-code);
+  background-color: #f0f0f0;
+  padding: 0.2em 0.4em;
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+}
+
+.preview-area pre {
+  margin: 1em 0;
+  padding: 1em;
+  background-color: #f5f5f5;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+}
+
+.preview-area pre code {
+  background-color: transparent;
+  padding: 0;
+  font-size: 0.9em;
+  display: block;
+  line-height: 1.5;
+}
+
+.preview-area a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.preview-area a:hover {
+  text-decoration: underline;
+}
+
+.preview-area strong {
+  font-weight: 700;
+}
+
+.preview-area em {
+  font-style: italic;
+}
+
+/* Form buttons */
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cancel {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.btn-cancel:hover {
+  background-color: #f5f5f5;
+  color: var(--color-text-primary);
+}
+
+.btn-submit {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+}
+
+.btn-submit:hover {
+  background-color: var(--color-primary-light);
+}
+
+/* Error messages */
+.error-message {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: var(--color-error);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+}
+
+.error-message i {
+  margin-right: var(--spacing-md);
+  font-size: 1.25rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .create-content {
+      padding: var(--spacing-md);
+  }
+  
+  .post-form {
+      padding: var(--spacing-md);
+  }
+  
+  .form-buttons {
+      flex-direction: column;
+  }
+  
+  .btn {
+      width: 100%;
+  }
+}

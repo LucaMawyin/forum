@@ -13,13 +13,13 @@ $conn = $database->get_connection();
     <title><?php echo $page_title ?? 'CodeForum'; ?></title>
     <link rel="stylesheet" href="assets/css/global.css">
     <?php 
-    if (isset($extraStyles)): 
-        if (is_array($extraStyles)):
-            foreach ($extraStyles as $style):
+    if (isset($extra_styles)): 
+        if (is_array($extra_styles)):
+            foreach ($extra_styles as $style):
                 echo '<link rel="stylesheet" href="' . htmlspecialchars($style) . '">';
             endforeach;
         else:
-            echo $extraStyles; 
+            echo $extra_styles; 
         endif;
     endif; 
     ?>

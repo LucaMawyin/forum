@@ -68,7 +68,7 @@ function return_response($success, $message) {
 }
 
 function format_post_content($content) {
-  // Convert Markdown to HTML manually
+  $content = html_entity_decode($content, 0, 'UTF-8');
 
   // Bold
   $content = preg_replace('/\*\*(.*?)\*\*/s', '<strong>$1</strong>', $content);

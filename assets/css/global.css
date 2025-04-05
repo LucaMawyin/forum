@@ -262,8 +262,8 @@ header h1 {
 /* Content Layout */
 .content {
   display: flex;
-  min-height: calc(100vh - 160px);
-  /* Account for header and footer */
+  min-height: calc(100vh - 160px); /* Account for header and footer */
+  width: 100%;
 }
 
 /* Sidebar */

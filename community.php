@@ -1,6 +1,6 @@
 <?php
-$pageTitle = 'CodeForum - Community';
-$extraStyles = ['assets/css/community.css'];
+$page_title = 'CodeForum - Community';
+$extra_styles = ['assets/css/community.css'];
 
 require_once 'includes/utils.php';
 require_once 'includes/config/database.php';
@@ -21,7 +21,6 @@ $course_id = $_GET['id'];
 $course = $course_obj->get_course_by_id($course_id);
 
 if (!$course) {
-  $page_title = "Course Not Found";
   echo '<div class="content">';
   echo '<main class="home-content">';
   echo '<div class="error-message">';
