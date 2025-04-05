@@ -3,7 +3,72 @@
 $page_title = "Register";
 
 require_once 'includes/utils.php';
+ensure_session_started();
+
 if (isset($_SESSION['user_id'])) redirect("index.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $username = isset($_POST['username']) ? clean_input($_POST['username']) : '';
+  $email = isset($_POST['email']) ? clean_input($_POST['email']) : '';
+  $password = isset($_POST['password']) ? $_POST['password'] : '';
+  $confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
+  $terms = isset($_POST['terms']) ? true : false;
+
+  if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+    $_SESSION['register_error'] = "All fields are required.";
+  }
+
+  if (!preg_match('/^[a-zA-Z0-9_]{3,20}$/', $username)) {
+    $_SESSION['register_error'] = "Username must be 3-20 characters.";
+  }
+
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match('/@mcmaster.ca$/', $email)) {
+    $_SESSION['register_error'] = "Please enter a valid McMaster email.";
+  }
+
+  if (strlen($password) < 8) {
+    $_SESSION['register_error'] = "Password must be at least 8 characters.";
+  }
+
+  if (!preg_match('/[A-Z]/', $password)) {
+    $_SESSION['register_error'] = "Password must contain at least one uppercase letter.";
+  }
+
+  if (!preg_match('/[a-z]/', $password)) {
+    $_SESSION['register_error'] = "Password must contain at least one lowercase letter.";
+  }
+
+  if (!preg_match('/[0-9]/', $password)) {
+    $_SESSION['register_error'] = "Password must contain at least one number.";
+  }
+
+  if (!preg_match('/[^A-Za-z0-9]/', $password)) {
+    $_SESSION['register_error'] = "Password must contain at least one special character.";
+  }
+
+  if ($password !== $confirm_password) {
+    $_SESSION['register_error'] = "Passwords do not match.";
+  }
+
+  if (!$terms) {
+    $_SESSION['register_error'] = "You must agree to the Terms of Service and Privacy Policy";
+  }
+
+  require_once 'includes/config/database.php';
+  require_once 'includes/classes/User.php';
+  $database = new Database();
+  $conn = $database->get_connection();
+  
+  $user = new User($conn);
+  $result = $user->register($username, $email, $password);
+
+  if ($result['success']) {
+    $_SESSION['login_success'] = "Registration successful! You can now log in.";
+    redirect("login.php");
+  } else {
+    $_SESSION['register_error'] = $result["message"];
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
