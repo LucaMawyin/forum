@@ -431,7 +431,7 @@ header h1 {
   gap: var(--spacing-sm);
 }
 
-#create {
+.create {
   background-color: var(--color-secondary);
   color: var(--color-text-primary);
   padding: 0.5rem 1rem;
@@ -441,11 +441,11 @@ header h1 {
   border: none;
 }
 
-#create:hover {
+.create:hover {
   background-color: var(--color-secondary-dark);
 }
 
-#account {
+.account {
   background-color: transparent;
   color: white;
   padding: 0.5rem 1rem;
@@ -455,7 +455,7 @@ header h1 {
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-#account:hover {
+.account:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
