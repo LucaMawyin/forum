@@ -67,6 +67,11 @@ function return_response($success, $message) {
   return array("success" => $success, "message" => $message);
 }
 
+function format_title_content($content) {
+  $content = html_entity_decode($content, 0, 'UTF-8');
+  return $content;
+}
+
 function format_post_content($content) {
   $content = html_entity_decode($content, 0, 'UTF-8');
 

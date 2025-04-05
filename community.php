@@ -8,9 +8,6 @@ require_once 'includes/config/database.php';
 include 'includes/partials/header.php';
 include 'includes/partials/sidebar.php';
 
-$db = new Database();
-$conn = $db->get_connection();
-
 if (!isset($_GET['id'])) {
   redirect("index.php");
 }

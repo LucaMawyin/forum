@@ -5,10 +5,6 @@ $extra_scripts = ["assets/js/create-post.js"];
 require_once 'includes/partials/header.php';
 require_once 'includes/partials/sidebar.php';
 
-require_once 'includes/config/database.php';
-$db = new Database();
-$conn = $db->get_connection();
-
 // Post submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $course_id = isset($_POST['course_id']) ? clean_input($_POST['course_id']) : '';
