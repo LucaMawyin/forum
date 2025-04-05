@@ -43,7 +43,7 @@ class Post {
       return array(
         "success" => true,
         "post_id" => $this->conn->lastInsertId(),
-        "message" => "Post created successfully"
+        "message" => "Post created successfuly"
       );
     }
 
@@ -107,7 +107,7 @@ class Post {
     $stmt->bindParam(":content", $content);
 
     if ($stmt->execute()) {
-      return return_response(true, "Post updated successfully");
+      return return_response(true, "Post updated successfuly");
     }
 
     return return_response(false, "Unable to update post");
@@ -139,7 +139,7 @@ class Post {
     $stmt->bindParam(":post_id", $post_id);
 
     if ($stmt->execute()) {
-      return return_response(false, "Post deleted successfully");
+      return return_response(false, "Post deleted successfuly");
     }
 
     return return_response(false, "Unable to delete post");
@@ -174,7 +174,7 @@ class Post {
     $stmt->bindParam(":post_id", $post_id);
 
     if ($stmt->execute()) {
-      return return_response(true, "Post $action successfully");
+      return return_response(true, "Post $action successfuly");
     }
 
     return return_response(false, "Unable to update post status");
@@ -209,7 +209,7 @@ class Post {
     $stmt->bindParam(":post_id", $post_id);
 
     if ($stmt->execute()) {
-      return return_response(true, "Post $action successfully");
+      return return_response(true, "Post $action successfuly");
     }
 
     return return_response(false, "Unable to update post status");

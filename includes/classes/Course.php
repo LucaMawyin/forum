@@ -80,7 +80,7 @@ class Course {
       return array(
         "success" => true,
         "course_id" => $this->conn->lastInsertId(),
-        "message" => "Course created successfully",
+        "message" => "Course created successfuly",
       );
     }
 
@@ -121,7 +121,7 @@ class Course {
     $stmt->bindParam(":instructor_id", $instructor_id);
 
     if ($stmt->execute()) {
-      return return_response(true, "Course updated successfully");
+      return return_response(true, "Course updated successfuly");
     }
 
     return return_response(false, "Unable to update course");
@@ -160,7 +160,7 @@ class Course {
 
       $this->conn->commit();
 
-      return return_response(true, "Course deleted successfully");
+      return return_response(true, "Course deleted successfuly");
     } catch (Exception $e) {
       $this->conn->rollBack();
       return array("success" => false, "message" => "Error deleting course: " . $e->getMessage());
