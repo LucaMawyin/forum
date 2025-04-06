@@ -67,7 +67,7 @@ class User {
     $stmt = $this->conn->prepare($query);
     
     $email = clean_input($email);
-    $stmt->bindParam(":email". $email);
+    $stmt->bindParam(":email", $email);
 
     $stmt->execute();
 
@@ -101,6 +101,13 @@ class User {
     ensure_session_started();
     $_SESSION = array();
     session_destroy();
+    
+    if (isset($_COOKIE['remember_token']) && isset($_COOKIE['user_id'])) {
+      $this->clear_remember_token($_COOKIE['user_id']);
+      
+      setcookie('remember_token', '', time() - 3600, '/');
+      setcookie('user_id', '', time() - 3600, '/');
+    }
     
     return return_response(true, "Logout successful");
   }
@@ -228,6 +235,59 @@ class User {
     $stmt->execute();
 
     return $stmt->rowCount() > 0;
+  }
+  
+  public function set_remember_token($user_id, $token) {
+    $expiry = date('Y-m-d H:i:s', time() + (86400 * 30));
+    
+    $query = "UPDATE " . $this->table_name . "
+              SET remember_token = :token, token_expiry = :expiry
+              WHERE user_id = :user_id";
+              
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":token", $token);
+    $stmt->bindParam(":expiry", $expiry);
+    $stmt->bindParam(":user_id", $user_id);
+    
+    return $stmt->execute();
+  }
+  
+  public function verify_remember_token($user_id, $token) {
+    $query = "SELECT user_id, username, email, role, token_expiry
+              FROM " . $this->table_name . "
+              WHERE user_id = :user_id AND remember_token = :token
+              AND token_expiry > CURRENT_TIMESTAMP";
+              
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":user_id", $user_id);
+    $stmt->bindParam(":token", $token);
+    $stmt->execute();
+    
+    if ($stmt->rowCount() > 0) {
+      $row = $stmt->fetch();
+      $this->update_last_login($user_id);
+      
+      ensure_session_started();
+      $_SESSION['user_id'] = $user_id;
+      $_SESSION['username'] = $row['username'];
+      $_SESSION['email'] = $row['email'];
+      $_SESSION['role'] = $row['role'];
+      
+      return true;
+    }
+    
+    return false;
+  }
+  
+  public function clear_remember_token($user_id) {
+    $query = "UPDATE " . $this->table_name . "
+              SET remember_token = NULL, token_expiry = NULL
+              WHERE user_id = :user_id";
+              
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":user_id", $user_id);
+    
+    return $stmt->execute();
   }
 }
 ?>

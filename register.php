@@ -1,10 +1,10 @@
 <?php
-// NOTE: header.php partial DOES NOT AFFECT THIS FILE
+// NOTE: header.php should not be used (no search bar)
 $page_title = "Register";
 
 require_once 'includes/utils.php';
-ensure_session_started();
 
+ensure_session_started();
 if (isset($_SESSION['user_id'])) redirect("index.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   require_once 'includes/classes/User.php';
   $database = new Database();
   $conn = $database->get_connection();
-  
+
   $user = new User($conn);
   $result = $user->register($username, $email, $password);
 
@@ -88,6 +88,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <a href="index.php">
       <h1>CodeForum</h1>
     </a>
+    <div id="nav-button-container">
+      <a href="register.php"><button class="account">Register</button></a>
+      <a href="login.php"><button class="account">Log In</button></a>
+    </div>
   </header>
   <div class="auth-container">
     <div class="auth-box register-box">
@@ -125,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class="input-with-icon">
             <i class="fas fa-lock"></i>
             <input type="password" id="password" name="password" placeholder="Create a strong password" required minlength="8">
-            <button type="button" class="toggle-password" area-label="Toggle password visibility">
+            <button type="button" class="toggle-password" aria-label="Toggle password visibility">
               <i class="fas fa-eye"></i>
             </button>
           </div>
@@ -152,10 +156,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <label for="terms">I agree to the <a href="terms.php">Terms of Service</a> and <a href="privacy.php">Privacy Policy</a></label>
         </div>
         <button type="submit" class="auth-button">Create Account</button>
-        <div class="auth-footer">
-          <p>Already have an account? <a href="login.php">Log In</a></p>
-        </div>
       </form>
+      <div class="auth-footer">
+        <p>Already have an account? <a href="login.php">Log In</a></p>
+      </div>
     </div>
   </div>
 

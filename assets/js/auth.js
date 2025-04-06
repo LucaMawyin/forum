@@ -257,5 +257,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // Auto-hide error and success messages after 5 seconds
   const messages = document.querySelectorAll('.error-message, .success-message');
+  messages.forEach(message => {
+    setTimeout(() => {
+      message.style.opacity = '0';
+      message.style.transition = 'opacity 0.5s ease';
+      setTimeout(() => {
+        if (message.parentNode) {
+          message.parentNode.removeChild(message);
+        }
+      }, 500);
+    }, 5000);
+  });
 });

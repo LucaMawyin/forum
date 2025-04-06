@@ -5,6 +5,11 @@ function ensure_session_started() {
   }
 }
 
+function is_logged_in() {
+  ensure_session_started();
+  return isset($_SESSION['user_id']);
+}
+
 function redirect($url)
 {
   header("Location: $url");
