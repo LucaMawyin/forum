@@ -65,7 +65,7 @@ $page_title = "Course: " . $course['course_code'];
 
   <div class="content-header">
     <h2>Discussions</h2>
-    <div class="filters">
+    <div class="filters d-flex justify-content-between align-items-center">
       <form method="GET" action="" id="sort-form">
         <input type="hidden" name="id" value="<?php echo $course_id; ?>">
         <select id="sort-by" name="sort" onchange="this.form.submit()">
@@ -74,6 +74,10 @@ $page_title = "Course: " . $course['course_code'];
           <option value="unanswered" <?php if ($sort_by == 'unanswered') echo 'selected'; ?>>Most Unaswered</option>
         </select>
       </form>
+      
+      <?php if ($is_logged_in): ?>
+        <a href="create-post.php?course=<?php echo $course_id; ?>" class="btn btn-primary">Create Post</a>
+      <?php endif; ?>
     </div>
   </div>
 

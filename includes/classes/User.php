@@ -12,8 +12,28 @@ class User {
   public $last_login;
   public $role;
 
-  public function __construct($db) {
+  public function __construct($db, $user_id = null) {
     $this->conn = $db;
+    if ($user_id) {
+      $this->user_id = $user_id;
+      $this->load_user_data();
+    }
+  }
+  
+  private function load_user_data() {
+    $query = "SELECT * FROM " . $this->table_name . " WHERE user_id = :user_id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":user_id", $this->user_id);
+    $stmt->execute();
+    
+    if ($stmt->rowCount() > 0) {
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      $this->username = $row['username'];
+      $this->email = $row['email'];
+      $this->registration_date = $row['registration_date'];
+      $this->last_login = $row['last_login'];
+      $this->role = $row['role'];
+    }
   }
 
   public function register($username, $email, $password) {
@@ -153,7 +173,7 @@ class User {
     }
 
     $query = "INSERT INTO user_courses (user_id, course_id, role)
-              VLUAES (:user_id, :course_id, :role)";
+              VALUES (:user_id, :course_id, :role)";
     
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(":user_id", $user_id);
@@ -288,6 +308,77 @@ class User {
     $stmt->bindParam(":user_id", $user_id);
     
     return $stmt->execute();
+  }
+  
+  // Admin functions for user management
+  
+  public function get_all_users() {
+    $query = "SELECT * FROM " . $this->table_name . " ORDER BY username";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+  
+  public function update_role($role) {
+    if (!in_array($role, ['user', 'moderator', 'admin'])) {
+      return return_response(false, "Invalid role");
+    }
+    
+    $query = "UPDATE " . $this->table_name . "
+              SET role = :role
+              WHERE user_id = :user_id";
+              
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":role", $role);
+    $stmt->bindParam(":user_id", $this->user_id);
+    
+    if ($stmt->execute()) {
+      $this->role = $role;
+      return return_response(true, "Role updated successfully");
+    }
+    
+    return return_response(false, "Failed to update role");
+  }
+  
+  public function delete_user() {
+    // First anonymize all posts and comments
+    $query = "UPDATE posts SET author_id = NULL WHERE author_id = :user_id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":user_id", $this->user_id);
+    $stmt->execute();
+    
+    $query = "UPDATE comments SET user_id = NULL WHERE user_id = :user_id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":user_id", $this->user_id);
+    $stmt->execute();
+    
+    // Remove from course enrollments
+    $query = "DELETE FROM user_courses WHERE user_id = :user_id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":user_id", $this->user_id);
+    $stmt->execute();
+    
+    // Delete the user
+    $query = "DELETE FROM " . $this->table_name . " WHERE user_id = :user_id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":user_id", $this->user_id);
+    
+    if ($stmt->execute()) {
+      return return_response(true, "User deleted successfully");
+    }
+    
+    return return_response(false, "Failed to delete user");
+  }
+  
+  public function get_data() {
+    return [
+      'id' => $this->user_id,
+      'username' => $this->username,
+      'email' => $this->email,
+      'role' => $this->role,
+      'registration_date' => $this->registration_date,
+      'last_login' => $this->last_login
+    ];
   }
 }
 ?>

@@ -77,6 +77,8 @@ if ($is_logged_in) {
             <a href="profile.php" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
             <?php if ($user_role == 'admin'): ?>
               <a href="admin.php" class="dropdown-item"><i class="fas fa-cog"></i> Admin</a>
+            <?php elseif ($user_role == 'moderator'): ?>
+              <a href="admin.php?tab=posts" class="dropdown-item"><i class="fas fa-shield-alt"></i> Moderator Panel</a>
             <?php endif; ?>
             <a href="logout.php" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
           </div>

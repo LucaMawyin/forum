@@ -79,16 +79,26 @@ class Post {
     if (!$post) return return_response(false, "Post not found");
 
     if ($post['user_id'] != $user_id) {
-      $query = "SELECT role from user_courses WHERE user_id = :user_id AND course_id = :course_id";
+      // Check if user is a site-wide admin or moderator
+      $query = "SELECT role FROM users WHERE user_id = :user_id";
       $stmt = $this->conn->prepare($query);
-      $stmt->bindParam(":user_id", $user_id);
-      $stmt->bindParam(":course_id", $post['course_id']);
+      $stmt->bindParam(':user_id', $user_id);
       $stmt->execute();
-
-      $user_role = $stmt->fetch();
-
-      if (!$user_role || ($user_role['role'] != 'moderator' && $user_role != 'admin')) {
-        return return_response(false, "You don't have permission to edit this post");
+      $site_role = $stmt->fetch();
+      
+      // If not site-wide admin/mod, check course-specific role
+      if (!$site_role || ($site_role['role'] != 'moderator' && $site_role['role'] != 'admin')) {
+        $query = "SELECT role from user_courses WHERE user_id = :user_id AND course_id = :course_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":user_id", $user_id);
+        $stmt->bindParam(":course_id", $post['course_id']);
+        $stmt->execute();
+  
+        $user_role = $stmt->fetch();
+  
+        if (!$user_role || ($user_role['role'] != 'moderator' && $user_role['role'] != 'admin')) {
+          return return_response(false, "You don't have permission to edit this post");
+        }
       }
     }
 
@@ -119,16 +129,26 @@ class Post {
     if (!$post) return return_response(false, "Post not found");
 
     if ($post['user_id'] != $user_id) {
-      $query = "SELECT role FROM user_courses WHERE user_id = :user_id AND course_id = :course_id";
+      // Check if user is a site-wide admin or moderator
+      $query = "SELECT role FROM users WHERE user_id = :user_id";
       $stmt = $this->conn->prepare($query);
       $stmt->bindParam(':user_id', $user_id);
-      $stmt->bindParam(':course_id', $post['course_id']);
       $stmt->execute();
+      $site_role = $stmt->fetch();
       
-      $user_role = $stmt->fetch();
-      
-      if (!$user_role || ($user_role['role'] != 'moderator' && $user_role['role'] != 'admin')) {
-          return return_response(false, "You don't have permission to delete this post");
+      // If not site-wide admin/mod, check course-specific role
+      if (!$site_role || ($site_role['role'] != 'moderator' && $site_role['role'] != 'admin')) {
+        $query = "SELECT role FROM user_courses WHERE user_id = :user_id AND course_id = :course_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':course_id', $post['course_id']);
+        $stmt->execute();
+        
+        $user_role = $stmt->fetch();
+        
+        if (!$user_role || ($user_role['role'] != 'moderator' && $user_role['role'] != 'admin')) {
+            return return_response(false, "You don't have permission to delete this post");
+        }
       }
     }
 
@@ -150,16 +170,26 @@ class Post {
 
     if (!$post) return return_response(false, "Post not found");
 
-    $query = "SELECT role FROM user_courses WHERE user_id = :user_id AND course_id = :course_id";
+    // Check if user is a site-wide admin or moderator
+    $query = "SELECT role FROM users WHERE user_id = :user_id";
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(':user_id', $user_id);
-    $stmt->bindParam(':course_id', $post['course_id']);
     $stmt->execute();
+    $site_role = $stmt->fetch();
     
-    $user_role = $stmt->fetch();
-    
-    if (!$user_role || ($user_role['role'] != 'moderator' && $user_role['role'] != 'admin')) {
-        return return_response(false, "You don't have permission to pin posts");
+    // If not site-wide admin/mod, check course-specific role
+    if (!$site_role || ($site_role['role'] != 'moderator' && $site_role['role'] != 'admin')) {
+        $query = "SELECT role FROM user_courses WHERE user_id = :user_id AND course_id = :course_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':course_id', $post['course_id']);
+        $stmt->execute();
+        
+        $user_role = $stmt->fetch();
+        
+        if (!$user_role || ($user_role['role'] != 'moderator' && $user_role['role'] != 'admin')) {
+            return return_response(false, "You don't have permission to pin posts");
+        }
     }
 
     $new_status = $post['is_pinned'] ? 0 : 1;
@@ -185,16 +215,26 @@ class Post {
 
     if (!$post) return return_response(false, "Post not found");
 
-    $query = "SELECT role FROM user_courses WHERE user_id = :user_id AND course_id = :course_id";
+    // Check if user is a site-wide admin or moderator
+    $query = "SELECT role FROM users WHERE user_id = :user_id";
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(':user_id', $user_id);
-    $stmt->bindParam(':course_id', $post['course_id']);
     $stmt->execute();
+    $site_role = $stmt->fetch();
     
-    $user_role = $stmt->fetch();
-    
-    if (!$user_role || ($user_role['role'] != 'moderator' && $user_role['role'] != 'admin')) {
-        return return_response(false, "You don't have permission to close this post");
+    // If not site-wide admin/mod, check course-specific role
+    if (!$site_role || ($site_role['role'] != 'moderator' && $site_role['role'] != 'admin')) {
+        $query = "SELECT role FROM user_courses WHERE user_id = :user_id AND course_id = :course_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':course_id', $post['course_id']);
+        $stmt->execute();
+        
+        $user_role = $stmt->fetch();
+        
+        if (!$user_role || ($user_role['role'] != 'moderator' && $user_role['role'] != 'admin')) {
+            return return_response(false, "You don't have permission to close this post");
+        }
     }
 
     $new_status = $post['is_closed'] ? 0 : 1;
@@ -391,6 +431,26 @@ class Post {
       'limit' => $limit,
       'total_pages' => ceil($total_posts / $limit)
     );
+  }
+  
+  // Method for getting recent posts for admin dashboard
+  public function get_recent_posts($limit = 10) {
+    $query = "SELECT p.*,
+                u.username as author_name,
+                c.title as course_title,
+                c.id as course_id
+              FROM " . $this->table_name . " p
+              LEFT JOIN users u ON p.author_id = u.user_id
+              LEFT JOIN courses c ON p.course_id = c.id
+              WHERE p.is_deleted = FALSE
+              ORDER BY p.created_at DESC
+              LIMIT :limit";
+    
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":limit", $limit, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 }
 ?>
